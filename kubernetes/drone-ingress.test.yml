@@ -16,7 +16,7 @@ spec:
   # tls:
   #  - secretName: wildcard.daf.teamdigitale.test
   rules:
-  - host: drone.daf.teamdigitale.test
+  - host: drone.teamdigitale.it
     http:
       paths:
       - path: /
