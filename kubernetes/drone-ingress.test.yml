@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: drone-ingress
+  annotations:
+    # Search for a host that has label foo=bar and schedule the load balancer on that host.
+    # io.rancher.scheduler.affinity.host_label: "ingress=true"
+    # Create load balancers on every host in the environment
+    # io.rancher.scheduler.global: "true"
+    # Prioritize traffic to containers that are on the same host as the load balancer container
+    io.rancher.lb_service.target: "prefer-local"
+    # Scaling to 2 load balancer instances
+    scale: "1"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  # tls:
+  #  - secretName: wildcard.daf.teamdigitale.test
+  rules:
+  - host: drone.daf.teamdigitale.test
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: drone-drone
+          servicePort: 80
