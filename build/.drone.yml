@@ -1,6 +1,5 @@
 # DA COMPLETARE
-# vanno aggiunti i certificati per nexus?
-# verificare deploy
+
 
 pipeline:
   build:
@@ -8,8 +7,8 @@ pipeline:
     repo: nexus.teamdigitale.test/ml-api
     registry: nexus.teamdigitale.test
     tags: test
-    secrets: [ nexus_username, nexus_password ]    
-
+    secrets: [ docker_username, docker_password ]
+    # insecure: true    da verificare se serva o meno    
   deploy:
     image: vallard/drone-kube
     template: kube-deploy-test.yml
