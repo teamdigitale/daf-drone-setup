@@ -99,7 +99,7 @@ Of course, we can also read the logs to check every step that was taken
 ```
 drone secret add \
   -repository teamdigitale/drone-poc \
-  -name nexus_username \
+  -name docker_username \
   -image plugins/docker \
   -event pull_request \
   -event push \
@@ -110,7 +110,7 @@ drone secret add \
 ```
 drone secret add \
   -repository teamdigitale/drone-poc \
-  -name nexus_password \
+  -name docker_password \
   -image plugins/docker \
   -event pull_request \
   -event push \
