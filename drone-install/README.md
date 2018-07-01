@@ -1,3 +1,17 @@
+
+# 1. install
+
+```
+$ helm install --name drone --namespace default -f drone-test.yml stable/drone
+
+```
+
+
+
+
+
+## OLD VERSION
+
 #### Step 1: installing Drone
 ```
 $ helm install --name drone \
