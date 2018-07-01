@@ -1,0 +1,51 @@
+ingress:
+  enabled: false
+
+persistence:
+  enabled: false
+
+server:
+  server:
+    repository: "docker.io/drone/drone"
+    tag: 0.8.5
+    pullPolicy: IfNotPresent
+  resources:
+   requests:
+     memory: 512Mi
+     cpu: 40m
+   limits:
+     memory: 2Gi
+     cpu: 2
+  env:
+    DRONE_DEBUG: "true"
+    # DRONE_ADMIN: "fabiofumarola, LolloneS"
+    DRONE_PROVIDER: "github"
+    DRONE_OPEN: "true"
+    DRONE_ORGS: "DroneTestTeamDigitale"
+    DRONE_GITHUB: "true"
+    DRONE_GITHUB_CLIENT: "6c32e5c1e287650d05e1"
+    envSecrets:
+      drone-server-secrets:
+        - DRONE_GITHUB_SECRET
+
+agent:
+  repository: "docker.io/drone/agent"
+  tag: 0.8.5
+  pullPolicy: IfNotPresent
+  env:
+    DRONE_DEBUG: "true"
+  replicas: 1
+  resources:
+   requests:
+     memory: 512Mi
+     cpu: 40m
+   limits:
+     memory: 2Gi
+     cpu: 2
+
+persistence:
+  enabled: true
+  existingClaim: "drone-pv-claim"
+
+rbac:
+  create: false
