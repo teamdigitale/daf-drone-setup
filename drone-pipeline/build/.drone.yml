@@ -6,7 +6,8 @@ pipeline:
     repo: nexus.teamdigitale.test/ml-api
     registry: nexus.teamdigitale.test
     tags: 0.1.1
-    secrets: [ docker_username, docker_password ]
+    username: NEXUS_USERNAME
+    password: NEXUS_PASSWORD
     dockerfile: outbox-classification/web-api/Dockerfile
     # insecure: true
 
@@ -15,3 +16,4 @@ pipeline:
     image: vallard/drone-kube
     template: kube-deploy-test.yml
     namespace: default
+    # server: ?

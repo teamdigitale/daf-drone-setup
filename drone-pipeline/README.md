@@ -1,6 +1,6 @@
 
 
-## Pipeline
+## Drone Pipeline
 
 ### Test
 
@@ -29,30 +29,6 @@ Of course, we can also read the logs to check every step that was taken
 
 ### Build and Deploy
 
-#### Configuring the Drone secrets for Nexus' username & password
-```
-drone secret add \
-  -repository teamdigitale/drone-poc \
-  -name docker_username \
-  -image plugins/docker \
-  -event pull_request \
-  -event push \
-  -event tag \
-  -value OUR_NEXUS_USERNAME
-```
-
-```
-drone secret add \
-  -repository teamdigitale/drone-poc \
-  -name docker_password \
-  -image plugins/docker \
-  -event pull_request \
-  -event push \
-  -event tag \
-  -value OUR_NEXUS_PASSWORD
-```
-
-#### Configuring the build & deploy pipeline
 We will configure build & deploy with [this](https://github.com/teamdigitale/daf-models/tree/master/outbox-classification/web-api) repository, using the [test deployment file](https://github.com/teamdigitale/daf-models/blob/master/outbox-classification/web-api/kube-deploy-test.yml). The service is reachable within the test VPN @ http://ml-api.daf.teamdigitale.test/.
 
 [Pipeline](build/.drone.yml)
