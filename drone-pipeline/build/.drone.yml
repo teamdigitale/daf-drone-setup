@@ -1,19 +1,20 @@
 pipeline:
   # 1. build the new docker image from Dockerfile 
-  # 2. push to Nexus with tag 0.1.1, so that this image will be used by kube-deploy-test.yml
-  build:
+  # 2. push to Nexus with tag "test", need to update kube-deploy-test.yml to match it
+  push_to_nexus:
     image: plugins/docker
-    repo: nexus.teamdigitale.test/ml-api
+    repo: 'nexus.teamdigitale.test/ml-api'
     registry: nexus.teamdigitale.test
-    tags: 0.1.1
-    username: NEXUS_USERNAME
-    password: NEXUS_PASSWORD
-    dockerfile: outbox-classification/web-api/Dockerfile
-    # insecure: true
+    tags: "test"
+    username: daf
+    password: aquaiH3e
+    dockerfile: outbox-classification/web-api/Dockerfile 
+    insecure: true
 
+    
   # deploy the built image to Kubernetes
-  deploy:
-    image: vallard/drone-kube
-    template: kube-deploy-test.yml
-    namespace: default
-    # server: ?
+  # deploy_to_kube:
+  #   image: vallard/drone-kube
+  #   template: kube-deploy-test.yml
+  #   namespace: default
+  #   # server: ?
