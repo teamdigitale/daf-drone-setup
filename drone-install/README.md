@@ -17,6 +17,7 @@ helm install --name drone --namespace default \
   --set ingress.enabled=false \
   --set persistence.existingClaim="drone-pv-claim" \
   --set server.env.DRONE_PROVIDER="github" \
+  --set server.env.DRONE_ESCALATE="plugins/docker" \
   --set server.env.DRONE_GITHUB="true" \
   --set server.env.DRONE_ORGS="DroneTestTeamDigitale" \
   --set server.env.DRONE_GITHUB_CLIENT="OUR_GITHUB_CLIENT" \
@@ -36,13 +37,13 @@ Here, in `spec > template > spec > containers`, edit `drone-drone-dind` so that 
 
 ```yaml
 - name: drone-drone-dind
-image: "docker.io/library/docker:17.12.0-ce-dind"
-imagePullPolicy: IfNotPresent
-env:
-- name: DOCKER_DRIVER
-    value: overlay2
-command: ["/bin/sh"]
-args: ["-c", "iptables -N DOCKER-USER; iptables -I DOCKER-USER -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu; dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --mtu=1350"]
+    image: "docker.io/library/docker:17.12.0-ce-dind"
+    imagePullPolicy: IfNotPresent
+    env:
+    - name: DOCKER_DRIVER
+        value: overlay2
+    command: ["/bin/sh"]
+    args: ["-c", "iptables -N DOCKER-USER; iptables -I DOCKER-USER -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu; dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --mtu=1350"]
 ```
 
 Then run `kubectl apply -f agent-deployment.yaml`.
