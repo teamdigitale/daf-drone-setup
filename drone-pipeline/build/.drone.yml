@@ -6,8 +6,7 @@ pipeline:
     repo: 'nexus.teamdigitale.test/ml-api'
     registry: nexus.teamdigitale.test
     tags: "test"
-    username: daf
-    password: aquaiH3e
+    secrets: [ docker_username, docker_password ]
     dockerfile: outbox-classification/web-api/Dockerfile 
     insecure: true
 
