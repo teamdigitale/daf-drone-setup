@@ -19,6 +19,7 @@ helm install --name drone --namespace default \
   --set server.env.DRONE_PROVIDER="github" \
   --set server.env.DRONE_ESCALATE="plugins/docker" \
   --set server.env.DRONE_GITHUB="true" \
+  --set server.env.DRONE_OPEN="true" \
   --set server.env.DRONE_ORGS="DroneTestTeamDigitale" \
   --set server.env.DRONE_GITHUB_CLIENT="OUR_GITHUB_CLIENT" \
   --set server.envSecrets.drone-server-secrets[0]=DRONE_GITHUB_SECRET \
