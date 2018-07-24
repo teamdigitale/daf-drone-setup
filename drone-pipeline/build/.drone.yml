@@ -1,19 +1,22 @@
 pipeline:
-  # 1. build the new docker image from Dockerfile 
-  # 2. push to Nexus with tag "test", need to update kube-deploy-test.yml to match it
-  push_to_nexus:
+  build_and_push_to_nexus:
     image: plugins/docker
     repo: 'nexus.teamdigitale.test/ml-api'
     registry: nexus.teamdigitale.test
     tags: "test"
     secrets: [ docker_username, docker_password ]
     dockerfile: outbox-classification/web-api/Dockerfile 
-    insecure: true
+    insecure: true 
 
-    
-  # deploy the built image to Kubernetes
-  # deploy_to_kube:
-  #   image: vallard/drone-kube
-  #   template: kube-deploy-test.yml
-  #   namespace: default
-  #   # server: ?
+  deploy:
+    image: 'lorenzosoligo/drone-kubernetes-plugin:1.0.0'
+    kubernetes_user: testkube
+    kubernetes_cluster: testkube
+    kubernetes_server: 'https://rancher.teamdigitale.test:8080/r/projects/1a99/kubernetes:6443'
+    kubernetes_token: QmFzaWMgUVVNME5FVXhNa1pDT0RVME1EWkRPRVV6TlVVNmNtNXZjMmxCZEhaMWFFcE5iVFZHY0dSdldIVXlXRkZqVXpWVmJXTlhTRkpFT0V4RE5VNVVadz09
+    namespace: default
+    deployment: 'ml-api-deployment'
+    repo: 'nexus.teamdigitale.test/ml-api'
+    container: 'ml-api'
+    tag: 0.1.2
+
