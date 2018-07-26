@@ -2,7 +2,7 @@
 
 ## Drone Pipeline
 
-### Test
+### First pipeline: Test
 
 We will configure some automatic tests using [this](https://github.com/teamdigitale/daf-srv-storage) repository. Tests are run by executing `sbt test`.
 
@@ -25,13 +25,12 @@ Of course, we can also read the logs to check every step that was taken
 
 ![img](https://i.imgur.com/Opp5jd7.png)
 
+In the latest version of this pipeline, Slack notifications have been added. This will result in a Slack message sent every time a build passes/fails. For instance: ![](https://i.imgur.com/TJGs2lF.png)
+
 
 
 ### Build and Deploy
 
 We will configure build & deploy with [this](https://github.com/teamdigitale/daf-models/tree/master/outbox-classification/web-api) repository, using the [test deployment file](https://github.com/teamdigitale/daf-models/blob/master/outbox-classification/web-api/kube-deploy-test.yml). The service is reachable within the test VPN @ http://ml-api.daf.teamdigitale.test/.
 
-[Pipeline](build/.drone.yml)
-
-The pipeline relies on two secrets, `docker_username` and `docker_password`, which contain Nexus' username and password. 
-They can either be created from Drone's web UI (repo_name -> secrets) or from Drone CLI.
+We will use the following [pipeline](build/.drone.yml), which relies on two secrets, `docker_username` and `docker_password`, which contain Nexus' username and password. These secrets can either be created from Drone's web UI (repo_name -> secrets) or from the Drone CLI.
