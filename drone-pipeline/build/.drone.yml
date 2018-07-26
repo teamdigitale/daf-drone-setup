@@ -1,0 +1,25 @@
+pipeline:
+  build_and_push_to_nexus:
+    image: plugins/docker
+    repo: 'nexus.teamdigitale.test/ml-api'
+    registry: nexus.teamdigitale.test
+    tags: "test"
+    # create the docker_username and docker_password secrets in Drone, with Nexus' username & password
+    secrets: [ docker_username, docker_password ]
+    dockerfile: outbox-classification/web-api/Dockerfile 
+    # you need insecure: true since we don't have a TLS certificate
+    insecure: true 
+
+  deploy:
+    image: 'lorenzosoligo/drone-kubernetes-plugin:1.0.0'
+    # inf you use rancher, you will find some following fields in the config file you download to use the CLI
+    kubernetes_user: KUBE_USERNAME_HERE
+    kubernetes_cluster: KUBE_USERNAME_HERE
+    kubernetes_server: LINK_TO_KUBE_SERVER_HERE
+    kubernetes_token: KUBE_TOKEN_HERE
+    namespace: default
+    deployment: 'ml-api-deployment'
+    repo: 'nexus.teamdigitale.test/ml-api'
+    container: 'ml-api'
+    tag: 0.1.2
+

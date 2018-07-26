@@ -1,0 +1,16 @@
+pipeline:
+  build:
+    image: hseeberger/scala-sbt
+    commands:
+      - sbt test
+
+  slack:
+    image: plugins/slack
+    webhook: INSERT_SLACK_WEBHOOK_HERE
+    channel: random
+    template: >
+      {{#success build.status}}
+        build {{build.number}} succeeded. Good job.
+      {{else}}
+        build {{build.number}} failed. Fix me please.
+      {{/success}}
