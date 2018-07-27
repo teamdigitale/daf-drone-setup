@@ -1,5 +1,5 @@
 pipeline:
-  build:
+  test:
     image: hseeberger/scala-sbt
     commands:
       - sbt test
