@@ -36,19 +36,8 @@ helm install --name drone --namespace default \
 ```
 
 
-## 3. Exposing Drone
-Forwarding port 8000 from the Drone server is required in order to access Drone's web UI.
-Two commands have to be run from the command line:
-```
-$ export POD_NAME=$(kubectl get pods -n default -l "component=server,app=drone,release=drone" -o jsonpath="{.items[0].metadata.name}")
 
-$ kubectl -n default port-forward $POD_NAME 8000:8000 &
-```
-
-Now Drone can be accessed at localhost:8000 (which is also forwarded to the external internet through the Ingress we created).
-
-
-## 4. Configure the DinD entrypoint
+## 3. Configure the DinD entrypoint
 Unfortunately, some problems with cloning the repositories appear if we don't change the default Docker-in-Docker entrypoint in the Drone agent. These problems seem to be related to Docker's MTU.
 
 We need to change the current deployment. Let's get it:
@@ -76,4 +65,18 @@ otherwise, cloning the repository would fail
 ![](https://i.imgur.com/dqFdj8E.png)
 
 
-Now Drone is working and ready to be used with the pipelines we created!
+
+## 4. Exposing Drone
+Forwarding port 8000 from the Drone server is required in order to access Drone's web UI.
+Two commands have to be run from the command line:
+```
+$ export POD_NAME=$(kubectl get pods -n default -l "component=server,app=drone,release=drone" -o jsonpath="{.items[0].metadata.name}")
+
+$ kubectl -n default port-forward $POD_NAME 8000:8000 &
+```
+
+Now Drone can be accessed at localhost:8000 (which is also forwarded to the external internet through the Ingress we created).
+
+
+That's it! Drone is working and ready to be used with the pipelines we created.
+
