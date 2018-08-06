@@ -20,12 +20,21 @@ As of now, the deployment process is far from being simple: tests must be run ma
 What we want to do is defining an automated process for CI/CD. A detailed analysis of challenges and solutions applied can be found [here](https://docs.google.com/document/d/1Xi3MglejhG_tBD4qmx8wAqZ77c7OptrqHgRq4H7K878/edit?usp=sharing).
 
 
+## The components involved
+There are lots of components involved in the process; here we will try and clarify what they do, hoping this helps seeing the big picture of this project.
+* **Drone**: [Drone](https://github.com/drone/drone) is a Docker-native CI/CD tool that we will use to automate testing, building and deploying of DAF's microservices
+* **Kubernetes**: Kubernetes is an open-source container-orchestration system for automating deployment, scaling and management of containerized applications. In our case, Kubernetes is used to run many of DAF's components
+* **Rancher**: Rancher is a container management platform that makes it easy to use and configure Kubernetes clusters, letting the user check logs, create Deployments, and much more through a simple UI
+* **Sonatype Nexus**: Nexus is a repository manager used to organize, store and distribute software components. In our case, Nexus hosts the Docker images you would usually upload on the Docker Hub.
+
+
+
 ## Installation and Setup
 
 ### Kubernetes Requirements
 
 In general to configure drone in kubernetes we need:
-- an ingress entry;
+- an Ingress entry;
 - a Persistent Volume and a Persistent Volume Claim for data and configurations persistence.
 
 Detailed instructions can be found [here](kubernetes/README.md).

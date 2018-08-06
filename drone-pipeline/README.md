@@ -1,5 +1,10 @@
 # Drone Pipeline
 
+## Introduction to Drone's pipelines
+```The pipeline section defines a list of steps to build, test and deploy your code. Pipeline steps are executed serially, in the order in which they are defined. If a step returns a non-zero exit code, the pipeline immediately aborts and returns a failure status.``` 
+More information about Drone's pipelines, such as examples, conditional steps, etcetera can be found in the [official documentation](http://docs.drone.io/pipelines/).
+Pipelines are defined in a `.drone.yml` file which must be placed in the root of the repository Drone needs to work on. The repository must also be _activated_ from Drone's UI as per the example below in order to trigger the pipeline when needed. This means that adding a pipeline to a project is as simple as adding the `.drone.yml` file, and that having this pipeline to actually work requires the repository to be activated.
+
 ## First pipeline: Test
 
 We will configure some automatic tests using [this](https://github.com/teamdigitale/daf-srv-storage) repository. Tests are run by executing `sbt test`.
