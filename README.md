@@ -38,6 +38,6 @@ A tutorial for this step can be found [here](drone-install/README.md).
 ### Configuring the pipelines
 Both the instructions and examples can be found in [drone-pipeline](drone-pipeline/README.md)
 
-- Test `.drone.yml`: [here](drone-pipeline/test/.drone.yml). This pipeline runs tests and sends Slack notifications about them.
+- [Test `.drone.yml`](drone-pipeline/test/.drone.yml). This pipeline runs tests and sends Slack notifications about them.
 
-- Build & deploy `.drone.yml`: [here](drone-pipeline/build/.drone.yml). This pipeline builds the service's Docker image and updates the Kubernetes deployment to match the newly created version.
+- [Build & deploy `.drone.yml`](drone-pipeline/build/.drone.yml). This pipeline builds the service's Docker image and updates the Kubernetes deployment to match the newly created version.
