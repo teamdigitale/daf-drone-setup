@@ -1,4 +1,4 @@
-# drone-poc
+# DAF Drone Setup
 
 A Drone.io *proof-of-concept* for the Team Digitale
 
