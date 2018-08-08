@@ -27,6 +27,10 @@ There are lots of components involved in the process; here we will try and clari
 * **Rancher**: Rancher is a container management platform that makes it easy to use and configure Kubernetes clusters, letting the user check logs, create Deployments, and much more through a simple UI
 * **Sonatype Nexus**: Nexus is a repository manager used to organize, store and distribute software components. In our case, Nexus hosts the Docker images you would usually upload on the Docker Hub.
 
+Two simple diagrams are here used to show how the components talk to each other.
+![](https://i.imgur.com/uWWaSlk.jpg)
+![](https://i.imgur.com/zDfw0WI.png)
+
 
 
 ## Installation and Setup
