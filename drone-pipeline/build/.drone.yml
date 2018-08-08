@@ -15,8 +15,7 @@ pipeline:
     # inf you use rancher, you will find some following fields in the config file you download to use the CLI
     kubernetes_user: KUBE_USERNAME_HERE
     kubernetes_cluster: KUBE_USERNAME_HERE
-    kubernetes_server: LINK_TO_KUBE_SERVER_HERE
-    kubernetes_token: KUBE_TOKEN_HERE
+    secrets: [ plugin_kubernetes_server, plugin_kubernetes_token ]
     namespace: default
     deployment: 'ml-api-deployment'
     repo: 'nexus.teamdigitale.test/ml-api'

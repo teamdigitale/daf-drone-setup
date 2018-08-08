@@ -1,6 +1,6 @@
 # DAF Drone Setup
 
-A Drone.io *proof-of-concept* for the Team Digitale
+A Drone.io *proof-of-concept* for the Team Digitale.
 
 ## Abstract
 
@@ -54,3 +54,27 @@ Both the instructions and examples can be found in [drone-pipeline](drone-pipeli
 - [Test `.drone.yml`](drone-pipeline/test/.drone.yml). This pipeline runs tests and sends Slack notifications about them.
 
 - [Build & deploy `.drone.yml`](drone-pipeline/build/.drone.yml). This pipeline builds the service's Docker image and updates the Kubernetes deployment to match the newly created version.
+
+
+## How to change the organization and other settings
+Let's assume that, at the moment, you are using persistence (which is regulated by Drone's Helm chart) and your configuration is open to every person in the "foobar" organization. What if you wanted to disable persistence and make Drone available only to one person?
+
+Of course, uninstalling and reinstalling Drone doesn't look like a smart move. Instead, you can just upgrade the application to change some settings. For example, to disable persistence, you would use:
+
+```$ helm upgrade drone \
+  --reuse-values \
+  --set persistence.enabled=false \
+  --set server.env.DRONE=ORGS="" \
+  --set server.env.DRONE_ADMIN="YOUR_GITHUB_USERNAME" \
+  --set server.env.DRONE_OPEN=false \
+   stable/drone
+```
+
+this way you have restricted the access to Drone to the only admin (you) and disabled persistence.
+
+You can find these settings both in the [Drone Helm chart documentation](https://github.com/helm/charts/tree/master/stable/drone), in [Drone's documentation](http://readme.drone.io/) and in [this post](https://akomljen.com/set-up-a-drone-ci-cd-pipeline-with-kubernetes/).
+
+## More information
+We have written a [Medium post](https://medium.com/@lorenzo.soligo/setting-up-a-ci-cd-pipeline-with-drone-on-a-kubernetes-cluster-fc6779798430) about this project. Check it out for more information!
+
+Also, the process of research and decision-making behind this project can be found [here](https://docs.google.com/document/d/1Xi3MglejhG_tBD4qmx8wAqZ77c7OptrqHgRq4H7K878/edit?usp=sharing).

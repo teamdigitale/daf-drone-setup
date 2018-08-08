@@ -1,16 +1,18 @@
 pipeline:
-  test:
+  build:
     image: hseeberger/scala-sbt
     commands:
       - sbt test
 
   slack:
     image: plugins/slack
-    webhook: INSERT_SLACK_WEBHOOK_HERE
-    channel: random
+    secrets: [ plugin_webhook ]
+    channel: 'daf-devel'
     template: >
       {{#success build.status}}
-        build {{build.number}} succeeded. Good job.
+        Build {{build.number}} for repo {{repo.name}} by {{build.author}} succeeded!
       {{else}}
-        build {{build.number}} failed. Fix me please.
+        Build {{build.number}} for repo {{repo.name}} by {{build.author}} failed! 
       {{/success}}
+
+
