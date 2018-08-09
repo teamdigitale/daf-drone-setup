@@ -59,14 +59,25 @@ Both the instructions and examples can be found in [drone-pipeline](drone-pipeli
 ## How to change the organization and other settings
 Let's assume that, at the moment, you are using persistence (which is regulated by Drone's Helm chart) and your configuration is open to every person in the "foobar" organization. What if you wanted to disable persistence and make Drone available only to one person?
 
-Of course, uninstalling and reinstalling Drone doesn't look like a smart move. Instead, you can just upgrade the application to change some settings. For example, to disable persistence, you would use:
+Of course, uninstalling and reinstalling Drone doesn't look like a smart move. Instead, you can just upgrade the application to change some settings. For example, to disable persistence and allow access to you only, you would need to create a new client/secret pair from your GitHub account's Apps section, and use:
 
-```$ helm upgrade drone \
+```
+# delete the old secret
+$ kubectl delete secret drone-server-secrets
+
+# create the new secret 
+$ kubectl create secret generic drone-server-secrets \
+  --namespace=default \
+  --from-literal=DRONE_GITHUB_SECRET="YOUR_NEW_GITHUB_SECRET"
+
+# upgrade the deployment
+$ helm upgrade drone \
   --reuse-values \
   --set persistence.enabled=false \
   --set server.env.DRONE=ORGS="" \
   --set server.env.DRONE_ADMIN="YOUR_GITHUB_USERNAME" \
   --set server.env.DRONE_OPEN=false \
+  --set server.env.DRONE_GITHUB_CLIENT='YOUR_NEW_GITHUB_CLIENT'
    stable/drone
 ```
 

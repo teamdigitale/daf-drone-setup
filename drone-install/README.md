@@ -4,7 +4,7 @@
 
 ## 1. Configure a Kubernetes secret with the GitHub secret
 
-You will need to create this secret in GitHub as per the [Drone docs](http://readme.drone.io/admin/setup-github/).
+You need to create a GitHub oAuth Application from `Settings -> Developer Settings -> oAuth Apps`, following the [Drone docs](http://readme.drone.io/admin/setup-github/). Once you have created the App, you can also create the Kubernetes secret using the following command:
 ```
 $ kubectl create secret generic drone-server-secrets  \
     --namespace=default \

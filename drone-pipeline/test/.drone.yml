@@ -1,6 +1,6 @@
 pipeline:
   build:
-    image: hseeberger/scala-sbt
+    image: hseeberger/scala-sbt:8u171_2.12.6_1.1.6
     commands:
       - sbt test
 
@@ -10,9 +10,9 @@ pipeline:
     channel: 'daf-devel'
     template: >
       {{#success build.status}}
-        Build {{build.number}} for repo {{repo.name}} by {{build.author}} succeeded!
+        build {{build.number}} for repo {{repo.name}} by {{build.author}} succeeded!
       {{else}}
-        Build {{build.number}} for repo {{repo.name}} by {{build.author}} failed! 
+        build {{build.number}} for repo {{repo.name}} by {{build.author}} failed! 
       {{/success}}
 
 
